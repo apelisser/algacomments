@@ -1,0 +1,6 @@
+[submodule "microsservices/comment-service"]
+	path = microsservices/comment-service
+	url = git@github.com:apelisser/comment-service.git
+[submodule "microsservices/moderation-service"]
+	path = microsservices/moderation-service
+	url = git@github.com:apelisser/moderation-service.git
