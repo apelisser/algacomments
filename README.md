@@ -62,14 +62,14 @@ graph TD
    cd moderation-service
    ./gradlew bootRun
    ```
-   > 🌐 Serviço disponível em: http://localhost:8080
+   > 🌐 Serviço disponível em: http://localhost:8081
 
 3. **Inicie o CommentService** (novo terminal)
    ```bash
    cd comment-service
    ./gradlew bootRun
    ```
-   > 🌐 Serviço disponível em: http://localhost:8081
+   > 🌐 Serviço disponível em: http://localhost:8080
 
 ### Verificação Rápida
 
