@@ -9,8 +9,8 @@ Um sistema distribuído de moderação de comentários construído com Spring Bo
 
 ```mermaid
 graph TD
-    A[Cliente] -->|POST /api/comments| B[CommentService :8081]
-    B -->|POST /api/moderate| C[ModerationService :8080]
+    A[Cliente] -->|POST /api/comments| B[CommentService :8080]
+    B -->|POST /api/moderate| C[ModerationService :8081]
     C -->|aprovado/rejeitado| B
     B -->|armazena se aprovado| D[(H2 Database)]
 ```
@@ -19,17 +19,17 @@ graph TD
 
 | Serviço | Porta | Responsabilidade |
 |---------|-------|------------------|
-| **CommentService** | 8081 | Gerencia CRUD de comentários e integração com moderação |
-| **ModerationService** | 8080 | Valida comentários contra lista de palavras proibidas |
+| **CommentService** | 8080 | Gerencia CRUD de comentários e integração com moderação |
+| **ModerationService** | 8081 | Valida comentários contra lista de palavras proibidas |
 
 **Comunicação**: HTTP/REST síncrona usando Spring RestClient
 
 ## ✨ Funcionalidades
 
-- 🛡️ **Moderação Automática**: Filtragem de conteúdo baseada em palavras-chave
-- 💾 **Armazenamento Seletivo**: Persiste apenas comentários aprovados
-- 🔍 **Consulta Eficiente**: Busca por ID e listagem paginada
-- ⚡ **Comunicação Resiliente**: Timeout configurável e tratamento de erros
+- 🛡️ **Moderação**: Filtragem de conteúdo baseada em palavras-chave
+- 💾 **Armazenamento**: Persiste apenas comentários aprovados
+- 🔍 **Consulta**: Busca por ID e listagem paginada
+- ⚡ **Comunicação Resiliente**: Timeout configurado e tratamento de erros
 
 ## 🛠️ Stack Tecnológica
 
@@ -52,7 +52,9 @@ graph TD
 1. **Clone o repositório com submódulos**
    ```bash
    git clone --recurse-submodules git@github.com:apelisser/algacomments.git
-   cd algacomments
+   ```
+   ```basht
+   cd algacomments/microsservices
    ```
 
 2. **Inicie o ModerationService**
@@ -71,19 +73,22 @@ graph TD
 
 ### Verificação Rápida
 
+#### Teste de criação de comentário
 ```bash
-# Teste de criação de comentário
-curl -X POST http://localhost:8081/api/comments \
+
+curl -X POST http://localhost:8080/api/comments \
   -H "Content-Type: application/json" \
   -d '{"text": "Ótimo conteúdo!", "author": "João"}'
+```
 
-# Listar comentários
-curl http://localhost:8081/api/comments
+#### Listar comentários
+```bash
+curl http://localhost:8080/api/comments
 ```
 
 ## 📖 Documentação da API
 
-### 💬 CommentService (porta 8081)
+### 💬 CommentService (porta 8080)
 
 #### Criar Comentário
 ```http
@@ -116,7 +121,7 @@ GET /api/comments/{id}
 GET /api/comments?page=0&size=20
 ```
 
-### 🛡️ ModerationService (porta 8080)
+### 🛡️ ModerationService (porta 8081)
 
 #### Moderar Comentário
 ```http
